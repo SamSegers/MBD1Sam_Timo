@@ -1,0 +1,40 @@
+/* display table/table-cell so the menu gets vertically centered */
+
+.wrapper{
+	color: #FFF;
+	display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.wrapper > .logo{
+	position: absolute;
+	width: auto;
+	height: 80px;
+	margin: 10px auto;
+	left: 0;
+	right: 0;
+}
+
+.wrapper > .credits{
+	position: absolute;
+	font-size: 10px;
+	bottom: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+.wrapper > .menu{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.wrapper > .menu > .item{
+	padding: 10px;	
+	margin: 10px 5px;
+	border-radius: 3px;
+	background: #3BA3FF;
+	text-align: center;
+	font-size: 30px;
+}

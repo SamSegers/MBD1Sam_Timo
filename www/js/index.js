@@ -47,27 +47,3 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-$(function(){
-	loadPokemon(0);
-});
-
-function loadPokemon(index){
-	if(index<811){
-		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=20&offset='+index, function(pokemons){
-			var html = '';
-			var odd = false;
-			var nextUrl = pokemons.next;
-			pokemons.results.forEach(function(elem){
-				html += "<div class='item"+(odd?" odd":'')+"'>";
-				html += "<img src='http://pokeapi.co/media/sprites/pokemon/"+(index+1)+".png'/>";
-				html += "<span>"+elem.name+"</span>";
-				html += "</div>";
-				odd ^= true;
-				index++;
-			});
-			$('.list').append(html);
-			loadPokemon(index);
-		}); 
-	}
-}
