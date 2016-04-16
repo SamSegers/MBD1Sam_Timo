@@ -8,6 +8,24 @@ body {
 	background: red; /* generic pokedex color */
 }
 
+body > .toast{
+	position: fixed;
+	z-index: 10;
+	bottom: 50px;
+	width: 100%;
+	display: none;
+}
+
+body > .toast > span{
+	display: block;
+	background: yellow;
+	border-radius: 3px;
+	padding: 5px;
+	max-width: 200px;
+	margin: 0px auto;
+	text-align: center;
+}
+
 
 /* DEFAULT CSS, don't really know if it is needed */
 
