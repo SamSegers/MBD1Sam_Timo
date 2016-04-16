@@ -50,6 +50,8 @@ var app = {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
+var pokemonAmount;
+var catched; // catched pokemon
 var catchable; // possible pokemon to catch
 
 $(function(){
@@ -59,16 +61,38 @@ $(function(){
 function onDeviceReady(){
 	console.log('device ready');
 
+	initPokemonAmount();
+	initCatchedPokemon();
 	initPokemon();
 	geolocation();
 }
 
+function initPokemonAmount(){
+	$.getJSON('http://pokeapi.co/api/v2/pokemon/?offset=10000', function(pokemons){
+		pokemonAmount = pokemons.count;
+	});
+}
+
+function initCatchedPokemon(){
+	catched = JSON.parse(localStorage.getItem("catched"));
+	if(catched==null) catched = [];
+	else{ // filter out duplicates
+		var originalLength = catched.length;
+		catched = catched.filter(function(item, pos) {
+			return catched.indexOf(item) == pos;
+		});
+		if(catched.length!=originalLength) localStorage.setItem("catched", JSON.stringify(catched));
+	}
+	console.log(catched);
+}
+
 //TODO randomize locations
+//TODO test if pokemon isn't catched
 //TODO pokemon class
 function initPokemon(){
 	catchable = [];
 	
-	catchable.push({id: 1, latitude: 51.957511, longitude: 5.244361});
+	catchable.push({id: 4, latitude: 51.957511, longitude: 5.244361});
 }
 
 function geolocation(){
@@ -94,7 +118,6 @@ function geolocation(){
 		if ('timestamp' in position) positionObject.timestamp = position.timestamp;
 
 		// Use the positionObject instead of the position 'object'
-		console.log(JSON.stringify(positionObject)); 
 		/*var element = document.getElementById('geolocation');
 		element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
 							'Longitude: ' + position.coords.longitude     + '<br />' +
@@ -105,7 +128,12 @@ function geolocation(){
 
 	function catchableReach(position){
 		catchable.forEach(function(pokemon){
-			if(measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){
+			if(catched.indexOf(pokemon.id)==-1 // test if pokemon is not catched already
+			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
+				catched.push(pokemon.id);
+				console.log(catched);
+				localStorage.setItem("catched", JSON.stringify(catched));
+
 				var $toast = $("body > .toast");
 				$toast.children("span").text("catched pokemon "+pokemon.id);
 				$toast.fadeIn(2000);
@@ -145,6 +173,6 @@ function geolocation(){
 
 		window.setInterval(function(){
 			navigator.geolocation.getCurrentPosition(onSuccess, onError, false);
-		}, 30000);
+		}, 20000);
 	}
 }

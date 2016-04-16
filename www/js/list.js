@@ -1,14 +1,16 @@
 $(function(){
+	console.log('amount '+pokemonAmount);
 	loadPokemon(0);
 });
 
+// click on item in list, go to detail page
 $(".list").on("click", ".item", function(){
 	localStorage.pokemonId = $(this).attr('data-id');
 	window.location = 'detail.html';
 });
 
 function loadPokemon(index){
-	if(index<811){
+	if(index<820){
 		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=100&offset='+index, function(pokemons){
 			var html = '';
 			var odd = false;

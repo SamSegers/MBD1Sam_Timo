@@ -17,6 +17,17 @@
 	right: 0;
 }
 
+.wrapper > .menu-pokemon{
+	position: absolute;
+	width: auto;
+	height: 100px;
+	margin: 30px auto;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+}
+
 .wrapper > .credits{
 	position: absolute;
 	font-size: 10px;
