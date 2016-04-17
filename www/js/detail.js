@@ -1,3 +1,3 @@
-$(function(){
-	$('.detail > .id').text(localStorage.pokemonId);
+$(document).on('pagebeforeshow', '#detail', function(){ 
+	$('#detail > .id').text(pokemonId);
 });

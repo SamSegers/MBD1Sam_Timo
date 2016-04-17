@@ -1,26 +1,27 @@
-.list{
+#list{
+	overflow-x: visible !important;
 }
 
-.list > .item{
+#list > .item{
 	font-size: 30px;
 	background: #FFF;
 }
 
-.list > .item > *{
+#list > .item > *{
 	display: inline-block;
 }
 
-.list > .item.odd{
+#list > .item.odd{
 	background: #f1f1f1;
 }
 
-.list > .item > img{
+#list > .item > img{
 	height: 70px;
 	width: auto;
 	margin-bottom: -10px;
 }
 
-.list > .item > span{
+#list > .item > span{
 	vertical-align: top;
 	padding: 15px 5px;
 }

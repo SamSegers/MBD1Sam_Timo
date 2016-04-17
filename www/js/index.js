@@ -51,19 +51,27 @@ var app = {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 var pokemonAmount;
+var pokemonId; // used for detail page
 var catched; // catched pokemon
 var catchable; // possible pokemon to catch
 
 $(function(){
+	initPokemonAmount();
+	initPokemon();
+	initCatchedPokemon();
 	$("body").prepend("<div class='toast'><span></span></div>");
+});
+
+// Bind to the navigate event
+$( window ).on( "navigate", function( event, data ) {
+	//console.log( data.state.info );
+	console.log( data.state.direction )
+	console.log( data.state.url )
+	//console.log( data.state.hash )
 });
 
 function onDeviceReady(){
 	console.log('device ready');
-
-	initPokemonAmount();
-	initCatchedPokemon();
-	initPokemon();
 	geolocation();
 }
 

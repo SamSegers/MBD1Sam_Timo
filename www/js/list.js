@@ -4,13 +4,13 @@ $(function(){
 });
 
 // click on item in list, go to detail page
-$(".list").on("click", ".item", function(){
-	localStorage.pokemonId = $(this).attr('data-id');
-	window.location = 'detail.html';
+$("#list").on("click", ".item", function(){
+	pokemonId = $(this).attr('data-id');
+	$.mobile.navigate( "#detail", { transition : "slide", info: "info about the #detail hash" });
 });
 
 function loadPokemon(index){
-	if(index<820){
+	if(index<811){
 		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=100&offset='+index, function(pokemons){
 			var html = '';
 			var odd = false;
@@ -25,7 +25,7 @@ function loadPokemon(index){
 				odd ^= true;
 				index++;
 			});
-			$('.list').append(html);
+			$('#list').append(html);
 			loadPokemon(index);
 		}); 
 	}
