@@ -70,8 +70,10 @@ $( window ).on( "navigate", function( event, data ) {
 	//console.log( data.state.hash )
 });
 
+
 function onDeviceReady(){
 	console.log('device ready');
+
 	geolocation();
 }
 

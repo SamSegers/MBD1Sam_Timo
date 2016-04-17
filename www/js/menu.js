@@ -27,7 +27,6 @@ $(document).on('pagebeforeshow', '#menu', function(){
 });
 
 function initMenuRandomPokemon(){
-	console.log("amount "+pokemonAmount);
 	var index = Math.floor(Math.random()*pokemonAmount);
 	$.getJSON("http://pokeapi.co/api/v2/pokemon/?offset="+index+"&limit=1", function(pokemons){
 		var segments = pokemons.results[0].url.split('/');
