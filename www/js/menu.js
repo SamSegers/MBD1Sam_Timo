@@ -31,9 +31,20 @@ function initMenuRandomPokemon(){
 	$.getJSON("http://pokeapi.co/api/v2/pokemon/?offset="+index+"&limit=1", function(pokemons){
 		var segments = pokemons.results[0].url.split('/');
 		var id = segments[segments.length-2];
+
 		$("#menu .menu-pokemon")
 			.attr("data-id", id)
-			.attr("src",  "http://pokeapi.co/media/sprites/pokemon/"+(index+1)+".png")
+			.attr("src",  "http://pokeapi.co/media/sprites/pokemon/"+id+".png")
 			.fadeIn(1000);
+
+		
 	});
+}
+
+function imageExists(image_url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
 }

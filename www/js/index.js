@@ -78,7 +78,7 @@ function onDeviceReady(){
 }
 
 function initPokemonAmount(){
-	$.getJSON('http://pokeapi.co/api/v2/pokemon/?offset=10000', function(pokemons){
+	$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=0', function(pokemons){
 		pokemonAmount = pokemons.count;
 	});
 }
