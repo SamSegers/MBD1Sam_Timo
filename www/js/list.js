@@ -20,7 +20,6 @@ function loadPokemon(index){
 			pokemons.results.forEach(function(elem){
 				var segments = elem.url.split('/');
 				var id = segments[segments.length-2];
-				console.log(id);
 				html += "<div class='item"+(odd?" odd":'')+"' data-id='"+id+"'>";
 				html += "<img src='http://pokeapi.co/media/sprites/pokemon/"+id+".png'/>";
 				html += "<span>"+elem.name+"</span>";
