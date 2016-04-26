@@ -74,10 +74,6 @@ $( window ).on( "navigate", function( event, data ) {
 function onDeviceReady(){
 	console.log('device ready');
 
-  // disable auto hiding navigationbar for builds
-  var autoHideNavigationBar = false;
-  window.navigationbar.setUp(autoHideNavigationBar); 
-
 	geolocation();
 }
 
