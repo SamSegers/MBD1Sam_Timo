@@ -102,8 +102,40 @@ function initCatchedPokemon(){
 function initPokemon(){
 	catchable = [];
 	
-	catchable.push({id: 4, latitude: 51.957511, longitude: 5.244361});
+	catchable.push({id: 1, latitude: 51.957511, longitude: 5.244361});
+
+	// random locations around current location
+	var margin = 1000;
+	for(var i=2;i<10;i++){
+		console.log('generate '+i);
+		var coords = getRandomCoords(catchable[0].latitude, catchable[0].longitude);
+		var lat = catchable[0].latitude-margin/2+Math.floor(Math.random()*margin);
+		var lng = catchable[0].longitude-margin/2+Math.floor(Math.random()*margin);
+
+		catchable.push({
+			id: i, 
+			latitude: coords.lat, 
+			longitude: coords.lng
+		});
+	}
 }
+
+function getRandomCoords(originalLat, originalLng){
+	var r = 100/111300; // = 500 meters
+	var y0 = originalLat;
+	var x0 = originalLng;
+	var u = Math.random();
+	var v = Math.random();
+	var w = r * Math.sqrt(u);
+	var t = 2 * Math.PI * v;
+	var x = w * Math.cos(t);
+	var y1 = w * Math.sin(t);
+	var x1 = x / Math.cos(y0);
+
+	return {lat: y0 + y1, lng: x0 + x1};
+}
+
+var positionObject = {};
 
 function geolocation(){
 	// onSuccess Callback
@@ -111,8 +143,6 @@ function geolocation(){
 	//   the current GPS coordinates
 	//
 	function onSuccess(position) {
-		var positionObject = {};
-
 		if ('coords' in position) {
 			positionObject.coords = {};
 
