@@ -84,16 +84,17 @@ function initPokemonAmount(){
 }
 
 function initCatchedPokemon(){
-	catched = JSON.parse(localStorage.getItem("catched"));
+	localStorage.setItem("catched", []); //TODO remove
+	if(localStorage["catched"]) catched = JSON.parse(localStorage.getItem("catched"));
 	if(catched==null) catched = [];
 	else{ // filter out duplicates
 		var originalLength = catched.length;
 		catched = catched.filter(function(item, pos) {
 			return catched.indexOf(item) == pos;
 		});
+		// save to clean the storage from duplicates
 		if(catched.length!=originalLength) localStorage.setItem("catched", JSON.stringify(catched));
 	}
-	console.log(catched);
 }
 
 //TODO randomize locations
@@ -106,7 +107,7 @@ function initPokemon(){
 
 	// random locations around current location
 	var margin = 1000;
-	for(var i=2;i<10;i++){
+	for(var i=2;i<=10;i++){
 		console.log('generate '+i);
 		var coords = getRandomCoords(catchable[0].latitude, catchable[0].longitude);
 		var lat = catchable[0].latitude-margin/2+Math.floor(Math.random()*margin);
@@ -167,9 +168,13 @@ function geolocation(){
 	}
 
 	function catchableReach(position){
-		catchable.forEach(function(pokemon){
+		for(var i=0;i<catchable.length;i++){
+			var pokemon = catchable[i];
+
 			if(catched.indexOf(pokemon.id)==-1 // test if pokemon is not catched already
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
+				navigator.vibrate(3000);
+
 				catched.push(pokemon.id);
 				console.log(catched);
 				localStorage.setItem("catched", JSON.stringify(catched));
@@ -181,8 +186,9 @@ function geolocation(){
 					$toast.fadeOut(2000);	
 					//TODO set toast on click to pokemon detail
 				}, 10000);
+				break; // catch only one so you don't get toast and vibration twice
 			}
-		});
+		};
 	}
 
 	function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
@@ -213,6 +219,6 @@ function geolocation(){
 
 		window.setInterval(function(){
 			navigator.geolocation.getCurrentPosition(onSuccess, onError, false);
-		}, 20000);
+		}, 15000);
 	}
 }
