@@ -11,19 +11,46 @@ body {
 body > .toast{
 	position: fixed;
 	z-index: 10;
-	bottom: 50px;
+	bottom: 60px;
 	width: 100%;
 	display: none;
 }
 
-body > .toast > span{
-	display: block;
-	background: yellow;
-	border-radius: 3px;
-	padding: 5px;
-	max-width: 200px;
+body > .toast > div{
+	position: relative;
+	width: 240px;
+	height: 60px;
+	background: #f1f1f1;
 	margin: 0px auto;
+	border-radius: 1px;
+}
+
+body > .toast > div > .text-wrapper{
+	margin: 0px 60px 0px 0px;
+	height: 100%;
+	position: relative;
+}
+
+body > .toast > div > .text-wrapper > div{
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+body > .toast > div > .text-wrapper > div > span{
+	display: table-cell;
+	word-wrap: break-word;
+	vertical-align: middle;
 	text-align: center;
+}
+
+body > .toast > div > img{
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 60px;
+	height: 60px;
 }
 
 

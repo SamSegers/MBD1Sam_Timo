@@ -51,15 +51,16 @@ var app = {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 var pokemonAmount;
+var pokemons;
 var pokemonId; // used for detail page
 var catched; // catched pokemon
 var catchable; // possible pokemon to catch
 
 $(function(){
+	loadPokemons();
 	initPokemonAmount();
-	initPokemon();
+	initCatchablePokemon();
 	initCatchedPokemon();
-	$("body").prepend("<div class='toast'><span></span></div>");
 });
 
 // Bind to the navigate event
@@ -83,6 +84,29 @@ function initPokemonAmount(){
 	});
 }
 
+function loadPokemons(){
+	pokemons = [];
+
+	/*$.getJSON("http://pokeapi.co/api/v2/pokemon/?limit=1000", function(data){
+	}); */
+
+	$.ajax({
+		url: "http://pokeapi.co/api/v2/pokemon/?limit=1000",
+		async: false,
+        success: function (data) {
+			data.results.forEach(function(elem){
+				var segments = elem.url.split('/');
+				var id = segments[segments.length-2];
+			
+				pokemons.push({ 
+					id: id,
+					name: elem.name
+				});
+			});
+        }
+	})
+}
+
 function initCatchedPokemon(){
 	localStorage.setItem("catched", []); //TODO remove
 	if(localStorage["catched"]) catched = JSON.parse(localStorage.getItem("catched"));
@@ -97,10 +121,8 @@ function initCatchedPokemon(){
 	}
 }
 
-//TODO randomize locations
-//TODO test if pokemon isn't catched
 //TODO pokemon class
-function initPokemon(){
+function initCatchablePokemon(){
 	catchable = [];
 	
 	catchable.push({id: 1, latitude: 51.957511, longitude: 5.244361});
@@ -173,14 +195,19 @@ function geolocation(){
 
 			if(catched.indexOf(pokemon.id)==-1 // test if pokemon is not catched already
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
-				navigator.vibrate(3000);
+				//navigator.vibrate(3000);
 
 				catched.push(pokemon.id);
-				console.log(catched);
 				localStorage.setItem("catched", JSON.stringify(catched));
 
+				// get from pokemons where id = pokemon.id
+				var pok = pokemons.filter(function(obj) {
+					return obj.id == pokemon.id;
+				})[0];
+
 				var $toast = $("body > .toast");
-				$toast.children("span").text("catched pokemon "+pokemon.id);
+				$toast.find("span").text("catched "+pok.name+"!");
+				$toast.find('img').attr('src', "http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png");
 				$toast.fadeIn(2000);
 				window.setTimeout(function(){
 					$toast.fadeOut(2000);	
@@ -208,7 +235,6 @@ function geolocation(){
 	function onError(error) {
 		console.log('code: '+error.code+'\n'+'message: '+error.message+'\n');
 	}
-
 
 	if(!navigator.geolocation) 
 		console.log("Error: Plugin not working!");
