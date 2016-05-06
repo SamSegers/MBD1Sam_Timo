@@ -56,9 +56,10 @@ function initMap(map){
 function addMarkers(map){
 	var latLng = {lat: positionObject.coords.latitude, lng: positionObject.coords.longitude};
 
-	catchable.forEach(function(elem){
-		console.log('adding '+elem.id+' to map');
-		var latLng = {lat: elem.latitude, lng: elem.longitude};
+	for(var i=0;i<catchable.length;i++){
+		var pokemon = getPokemon(catchable[i]);
+
+		var latLng = {lat: pokemon.latitude, lng: pokemon.longitude};
 
 		var circle = new google.maps.Circle({
 			strokeColor: '#FF0000',
@@ -70,5 +71,7 @@ function addMarkers(map){
 			center: latLng,
 			radius: 100
 		});
-	});
+
+		console.log('added '+pokemon.id+' to map');
+	}
 }

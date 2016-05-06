@@ -5,6 +5,7 @@ $(document).on('pagebeforeshow', '#menu', function(){
 	}, 1000);
 
 	$(".item.list").click(function(){
+		fillList();
 		$.mobile.navigate( "#list", { transition : "slide", info: "info about the #list hash" });
 	});
 
@@ -30,14 +31,12 @@ function initMenuRandomPokemon(){
 	var index = Math.floor(Math.random()*pokemonAmount);
 	$.getJSON("http://pokeapi.co/api/v2/pokemon/?offset="+index+"&limit=1", function(pokemons){
 		var segments = pokemons.results[0].url.split('/');
-		var id = segments[segments.length-2];
+		var id = parseInt(segments[segments.length-2]);
 
 		$("#menu .menu-pokemon")
 			.attr("data-id", id)
 			.attr("src",  "http://pokeapi.co/media/sprites/pokemon/"+id+".png")
 			.fadeIn(1000);
-
-		
 	});
 }
 

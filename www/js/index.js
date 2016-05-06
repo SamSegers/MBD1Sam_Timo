@@ -87,16 +87,13 @@ function initPokemonAmount(){
 function loadPokemons(){
 	pokemons = [];
 
-	/*$.getJSON("http://pokeapi.co/api/v2/pokemon/?limit=1000", function(data){
-	}); */
-
 	$.ajax({
 		url: "http://pokeapi.co/api/v2/pokemon/?limit=1000",
 		async: false,
         success: function (data) {
 			data.results.forEach(function(elem){
 				var segments = elem.url.split('/');
-				var id = segments[segments.length-2];
+				var id = parseInt(segments[segments.length-2]);
 			
 				pokemons.push({ 
 					id: id,
@@ -124,23 +121,37 @@ function initCatchedPokemon(){
 //TODO pokemon class
 function initCatchablePokemon(){
 	catchable = [];
+
+	var pokemon = getPokemon(1);
 	
-	catchable.push({id: 1, latitude: 51.957511, longitude: 5.244361});
+	//TODO close to user location
+	// close to Timo's home
+	pokemon.latitude = 51.957511;
+	pokemon.longitude = 5.244361;
+
+	catchable.push(1);
 
 	// random locations around current location
 	var margin = 1000;
 	for(var i=2;i<=10;i++){
-		console.log('generate '+i);
-		var coords = getRandomCoords(catchable[0].latitude, catchable[0].longitude);
-		var lat = catchable[0].latitude-margin/2+Math.floor(Math.random()*margin);
-		var lng = catchable[0].longitude-margin/2+Math.floor(Math.random()*margin);
+		console.log('generate location '+i);
 
-		catchable.push({
-			id: i, 
-			latitude: coords.lat, 
-			longitude: coords.lng
-		});
+		var coords = getRandomCoords(pokemons[0].latitude, pokemons[0].longitude);
+		//var lat = pokemons[0].latitude-margin/2+Math.floor(Math.random()*margin);
+		//var lng = pokemons[0].longitude-margin/2+Math.floor(Math.random()*margin);
+
+		pokemon = getPokemon(i);
+		pokemon.latitude = coords.lat;
+		pokemon.longitude = coords.lng;
+
+		catchable.push(i);
 	}
+}
+
+function getPokemon(id){
+	return pokemons.filter(function(obj) {
+		return obj.id == id;
+	})[0];
 }
 
 function getRandomCoords(originalLat, originalLng){
@@ -191,29 +202,26 @@ function geolocation(){
 
 	function catchableReach(position){
 		for(var i=0;i<catchable.length;i++){
-			var pokemon = catchable[i];
+			var pokemon = getPokemon(catchable[i]);
 
 			if(catched.indexOf(pokemon.id)==-1 // test if pokemon is not catched already
+			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be catched
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
-				//navigator.vibrate(3000);
+				//navigator.vibrate(3000); TODO uncomment
 
 				catched.push(pokemon.id);
 				localStorage.setItem("catched", JSON.stringify(catched));
-
-				// get from pokemons where id = pokemon.id
-				var pok = pokemons.filter(function(obj) {
-					return obj.id == pokemon.id;
-				})[0];
+				console.log(catched);
 
 				var $toast = $("body > .toast");
-				$toast.find("span").text("catched "+pok.name+"!");
+				$toast.find("span").text("caught "+pokemon.name+"!");
 				$toast.find('img').attr('src', "http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png");
 				$toast.fadeIn(2000);
 				window.setTimeout(function(){
 					$toast.fadeOut(2000);	
 					//TODO set toast on click to pokemon detail
 				}, 10000);
-				break; // catch only one so you don't get toast and vibration twice
+				break;
 			}
 		};
 	}
