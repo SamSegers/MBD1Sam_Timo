@@ -1,5 +1,15 @@
 $(function(){
+
+/*		var names = [];
+	names[0] = "1";
+names[1] = "2";
+names[2] = "3";
+localStorage.setItem("catched", JSON.stringify(names));*/
 	loadCaughtPokemon();
+
+	
+
+
 });
 
 function loadCaughtPokemon(){
@@ -7,10 +17,9 @@ function loadCaughtPokemon(){
 	var caught = JSON.parse(localStorage.getItem("catched"));
 	if(caught==null) caught = [];
 	//localStorage.getItem(localStorage.key(i));
-	
+	 
 	for (var i = 0; i < caught.length; i++) {
-		
-		getJSON('http://pokeapi.co/api/v2/pokemon/?limit=1&offset='+caught[i], function(pokemons){
+		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=1&offset='+caught[i], function(pokemons){
 			var html = '';
 			var odd = false;
 			var nextUrl = pokemons.next;
