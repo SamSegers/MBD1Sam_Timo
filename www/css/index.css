@@ -5,7 +5,15 @@
 body {
 	margin: 0px;	
 	padding: 0px;
-	background: red; /* generic pokedex color */
+	background-color: red; /* generic pokedex color */
+}
+
+body.splashscreen{
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
+	background-image: url(../img/splashscreen.jpg);
+	background-color: #828e60;
 }
 
 body > .toast{
