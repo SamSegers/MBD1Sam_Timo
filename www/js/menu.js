@@ -22,7 +22,7 @@ $(document).on('pagebeforeshow', '#menu', function(){
 	});
 
 	$(".menu-pokemon").click(function(){
-		pokemonId = $(this).attr('data-id');
+		detailPokemonId = $(this).attr('data-id');
 		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #exchange hash"});
 	});
 });

@@ -1,3 +1,3 @@
 $(document).on('pagebeforeshow', '#detail', function(){ 
-	$('#detail > .id').text(pokemonId);
+	$('#detail > .id').text(detailPokemonId);
 });

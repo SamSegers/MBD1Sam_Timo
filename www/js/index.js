@@ -52,15 +52,17 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 var pokemonAmount;
 var pokemons;
-var pokemonId; // used for detail page
+var detailPokemonId; // used for detail page
 var caught; // caught pokemon
 var catchable; // possible pokemon to catch
+var $toast;
 
 $(function(){
 	loadPokemons();
 	initPokemonAmount();
 	initCatchablePokemon();
-	initCatchedPokemon();
+	initCaughtPokemon();
+	initToast();
 	$("body").removeClass('splashscreen');
 });
 
@@ -105,20 +107,6 @@ function loadPokemons(){
 	})
 }
 
-function initCatchedPokemon(){
-	localStorage.setItem("caught", []); //TODO remove
-	if(localStorage["caught"]) caught = JSON.parse(localStorage.getItem("caught"));
-	if(caught==null) caught = [];
-	else{ // filter out duplicates
-		var originalLength = caught.length;
-		caught = caught.filter(function(item, pos) {
-			return caught.indexOf(item) == pos;
-		});
-		// save to clean the storage from duplicates
-		if(caught.length!=originalLength) localStorage.setItem("caught", JSON.stringify(caught));
-	}
-}
-
 //TODO pokemon class
 function initCatchablePokemon(){
 	catchable = [];
@@ -147,6 +135,31 @@ function initCatchablePokemon(){
 
 		catchable.push(i);
 	}
+}
+
+function initCaughtPokemon(){
+	localStorage.setItem("caught", []); //TODO remove
+	if(localStorage["caught"]) caught = JSON.parse(localStorage.getItem("caught"));
+	if(caught==null) caught = [];
+	else{ // filter out duplicates
+		var originalLength = caught.length;
+		caught = caught.filter(function(item, pos) {
+			return caught.indexOf(item) == pos;
+		});
+		// save to clean the storage from duplicates
+		if(caught.length!=originalLength) localStorage.setItem("caught", JSON.stringify(caught));
+	}
+}
+
+function initToast(){
+	$toast = $("body > .toast");
+	$toast.click(function(){
+		try{
+		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #detail hash"});
+		}catch(e){
+			console.log(e.message);	
+		}
+	});
 }
 
 function getPokemon(id){
@@ -214,14 +227,17 @@ function geolocation(){
 				localStorage.setItem("caught", JSON.stringify(caught));
 				console.log(caught);
 
-				var $toast = $("body > .toast");
+				detailPokemonId = pokemon.id;
+
 				$toast.find("span").text("caught "+pokemon.name+"!");
 				$toast.find('img').attr('src', "http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png");
-				$toast.fadeIn(2000);
-				window.setTimeout(function(){
-					$toast.fadeOut(2000);	
-					//TODO set toast on click to pokemon detail
-				}, 10000);
+				$toast.fadeIn(1000, function(){
+					window.setTimeout(function(){
+						$toast.fadeOut(1000, function(){
+							$toast.find('img').attr('src', null);
+						});
+					}, 8000);
+				});
 				break;
 			}
 		};
@@ -236,7 +252,7 @@ function geolocation(){
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 		var d = R * c;
-		return d * 1000; // meters
+		return d * 500; // meters
 	}
 
 	// onError Callback receives a PositionError object

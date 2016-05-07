@@ -1,6 +1,6 @@
 // click on item in list, go to detail page
 $("#list").on("click", ".item", function(){
-	pokemonId = $(this).attr('data-id');
+	detailPokemonId = $(this).attr('data-id');
 	$.mobile.navigate( "#detail", { transition : "slide", info: "info about the #detail hash" });
 });
 
