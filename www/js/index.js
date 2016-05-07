@@ -52,15 +52,18 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 var pokemonAmount;
 var pokemons;
-var pokemonId; // used for detail page
-var catched; // catched pokemon
+var detailPokemonId; // used for detail page
+var caught; // caught pokemon
 var catchable; // possible pokemon to catch
+var $toast;
 
 $(function(){
 	loadPokemons();
 	initPokemonAmount();
 	initCatchablePokemon();
-	initCatchedPokemon();
+	initCaughtPokemon();
+	initToast();
+	$("body").removeClass('splashscreen');
 });
 
 // Bind to the navigate event
@@ -104,20 +107,6 @@ function loadPokemons(){
 	})
 }
 
-function initCatchedPokemon(){
-	localStorage.setItem("catched", []); //TODO remove
-	if(localStorage["catched"]) catched = JSON.parse(localStorage.getItem("catched"));
-	if(catched==null) catched = [];
-	else{ // filter out duplicates
-		var originalLength = catched.length;
-		catched = catched.filter(function(item, pos) {
-			return catched.indexOf(item) == pos;
-		});
-		// save to clean the storage from duplicates
-		if(catched.length!=originalLength) localStorage.setItem("catched", JSON.stringify(catched));
-	}
-}
-
 //TODO pokemon class
 function initCatchablePokemon(){
 	catchable = [];
@@ -146,6 +135,28 @@ function initCatchablePokemon(){
 
 		catchable.push(i);
 	}
+}
+
+function initCaughtPokemon(){
+	localStorage.setItem("caught", []); //TODO remove
+	if(localStorage["caught"]) caught = JSON.parse(localStorage.getItem("caught"));
+	if(caught==null) caught = [];
+	else{ // filter out duplicates
+		var originalLength = caught.length;
+		caught = caught.filter(function(item, pos) {
+			return caught.indexOf(item) == pos;
+		});
+		// save to clean the storage from duplicates
+		if(caught.length!=originalLength) localStorage.setItem("caught", JSON.stringify(caught));
+	}
+}
+
+function initToast(){
+	$toast = $("body > .toast");
+	$toast.click(function(){
+		updateDetailPage();
+		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #detail hash"});
+	});
 }
 
 function getPokemon(id){
@@ -204,23 +215,26 @@ function geolocation(){
 		for(var i=0;i<catchable.length;i++){
 			var pokemon = getPokemon(catchable[i]);
 
-			if(catched.indexOf(pokemon.id)==-1 // test if pokemon is not catched already
-			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be catched
+			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
+			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
 				//navigator.vibrate(3000); TODO uncomment
 
-				catched.push(pokemon.id);
-				localStorage.setItem("catched", JSON.stringify(catched));
-				console.log(catched);
+				caught.push(pokemon.id);
+				localStorage.setItem("caught", JSON.stringify(caught));
+				console.log(caught);
 
-				var $toast = $("body > .toast");
+				detailPokemonId = pokemon.id;
+
 				$toast.find("span").text("caught "+pokemon.name+"!");
 				$toast.find('img').attr('src', "http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png");
-				$toast.fadeIn(2000);
-				window.setTimeout(function(){
-					$toast.fadeOut(2000);	
-					//TODO set toast on click to pokemon detail
-				}, 10000);
+				$toast.fadeIn(1000, function(){
+					window.setTimeout(function(){
+						$toast.fadeOut(1000, function(){
+							$toast.find('img').attr('src', null);
+						});
+					}, 8000);
+				});
 				break;
 			}
 		};
@@ -235,7 +249,7 @@ function geolocation(){
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 		var d = R * c;
-		return d * 1000; // meters
+		return d * 500; // meters
 	}
 
 	// onError Callback receives a PositionError object

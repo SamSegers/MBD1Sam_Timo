@@ -4,7 +4,7 @@ $(function(){
 	names[0] = "1";
 names[1] = "2";
 names[2] = "3";
-localStorage.setItem("catched", JSON.stringify(names));*/
+localStorage.setItem("caught", JSON.stringify(names));*/
 	loadCaughtPokemon();
 
 	
@@ -14,7 +14,7 @@ localStorage.setItem("catched", JSON.stringify(names));*/
 
 function loadCaughtPokemon(){
 
-	var caught = JSON.parse(localStorage.getItem("catched"));
+	var caught = JSON.parse(localStorage.getItem("caught"));
 	if(caught==null) caught = [];
 	//localStorage.getItem(localStorage.key(i));
 	 
@@ -32,7 +32,7 @@ function loadCaughtPokemon(){
 				html += "</div>";
 				odd ^= true;
 			});
-			$('#catched').append(html);
+			$('#caught').append(html);
 		});
     //Do something
 	}

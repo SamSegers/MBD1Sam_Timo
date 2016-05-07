@@ -32,13 +32,13 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/menu.css" />
         <link rel="stylesheet" type="text/css" href="css/list.css" />
-        <link rel="stylesheet" type="text/css" href="css/catched.css" />
+        <link rel="stylesheet" type="text/css" href="css/caught.css" />
         <link rel="stylesheet" type="text/css" href="css/map.css" />
         <link rel="stylesheet" type="text/css" href="css/exchange.css" />
         <link rel="stylesheet" type="text/css" href="css/detail.css" />
         <title>pokedex</title>
     </head>
-    <body>
+    <body class='splashscreen'>
 		<div class='toast'><div>
 			<div class='text-wrapper'><div>
 				<span>placeholder</span>
@@ -74,7 +74,7 @@
 			});
 
 			$.ajax({
-				url: "catched.html",
+				url: "caught.html",
 				success: function (data) { $('body').append(data); },
 				dataType: 'html'
 			});
@@ -103,7 +103,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
         <script type="text/javascript" src="js/list.js"></script>
-        <script type="text/javascript" src="js/catched.js"></script>
+        <script type="text/javascript" src="js/caught.js"></script>
         <script type="text/javascript" src="js/exchange.js"></script>
         <script type="text/javascript" src="js/detail.js"></script>
 		

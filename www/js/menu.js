@@ -6,24 +6,24 @@ $(document).on('pagebeforeshow', '#menu', function(){
 
 	$(".item.list").click(function(){
 		fillList();
-		$.mobile.navigate( "#list", { transition : "slide", info: "info about the #list hash" });
+		$.mobile.navigate("#list", { transition : "slide", info: "info about the #list hash"});
 	});
 
-	$(".item.catched").click(function(){
-		$.mobile.navigate( "#catched", { transition : "slide", info: "info about the #catched hash" });
+	$(".item.caught").click(function(){
+		$.mobile.navigate("#caught", { transition : "slide", info: "info about the #caught hash"});
 	});
 
 	$(".item.map").click(function(){
-		$.mobile.navigate( "#map", { transition : "slide", info: "info about the #map hash" });
+		$.mobile.navigate("#map", { transition : "slide", info: "info about the #map hash"});
 	});
 
 	$(".item.exchange").click(function(){
-		$.mobile.navigate( "#exchange", { transition : "slide", info: "info about the #exchange hash" });
+		$.mobile.navigate("#exchange", { transition : "slide", info: "info about the #exchange hash"});
 	});
 
 	$(".menu-pokemon").click(function(){
-		pokemonId = $(this).attr('data-id');
-		$.mobile.navigate( "#detail", { transition : "slide", info: "info about the #exchange hash" });
+		detailPokemonId = $(this).attr('data-id');
+		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #exchange hash"});
 	});
 });
 
