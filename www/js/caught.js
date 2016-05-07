@@ -6,14 +6,14 @@ names[1] = "2";
 names[2] = "3";
 localStorage.setItem("caught", JSON.stringify(names));*/
 	loadCaughtPokemon();
-
-	
-
-
 });
+
+
 
 function loadCaughtPokemon(){
 
+	var t = localStorage.getItem("caught");
+	if(t == "") return;
 	var caught = JSON.parse(localStorage.getItem("caught"));
 	if(caught==null) caught = [];
 	//localStorage.getItem(localStorage.key(i));
@@ -34,6 +34,5 @@ function loadCaughtPokemon(){
 			});
 			$('#caught').append(html);
 		});
-    //Do something
 	}
 }
