@@ -154,11 +154,8 @@ function initCaughtPokemon(){
 function initToast(){
 	$toast = $("body > .toast");
 	$toast.click(function(){
-		try{
+		updateDetailPage();
 		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #detail hash"});
-		}catch(e){
-			console.log(e.message);	
-		}
 	});
 }
 
