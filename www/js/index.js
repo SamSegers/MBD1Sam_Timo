@@ -130,7 +130,7 @@ function initCatchablePokemon(){
 }
 
 function initCaughtPokemon(){
-	localStorage.setItem("caught", []); //TODO remove
+	localStorage.setItem("caught", []); //TODO remove?
 	if(localStorage["caught"]) caught = JSON.parse(localStorage.getItem("caught"));
 	if(caught==null) caught = [];
 	else{ // filter out duplicates
@@ -212,7 +212,7 @@ function geolocation(){
 			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
 			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=100){ // test if pokemon is in 110 meter distance radius
-				//navigator.vibrate(3000); TODO uncomment
+				navigator.vibrate(3000);
 
 				caught.push(pokemon.id);
 				localStorage.setItem("caught", JSON.stringify(caught));
