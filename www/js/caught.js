@@ -1,29 +1,24 @@
-$(function(){
-
-/*		var names = [];
-	names[0] = "1";
-names[1] = "2";
-names[2] = "3";
-localStorage.setItem("caught", JSON.stringify(names));*/
+$(document).on('pagebeforeshow', '#detail', function(){ 
+	console.log('detail');
 	loadCaughtPokemon();
 });
 
 
-
 function loadCaughtPokemon(){
-
-	var t = localStorage.getItem("caught");
+	console.log('detail 2');
+	/*var t = localStorage.getItem("caught");
 	if(t == "") return;
 	var caught = JSON.parse(localStorage.getItem("caught"));
-	if(caught==null) caught = [];
-	//localStorage.getItem(localStorage.key(i));
+	if(caught==null) caught = [];*/
+	console.log(caught);
 	 
 	for (var i = 0; i < caught.length; i++) {
-		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=1&offset='+caught[i], function(pokemons){
+		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=1&offset='+caught[i], function(pokemon){
 			var html = '';
 			var odd = false;
 			var nextUrl = pokemons.next;
-			pokemons.results.forEach(function(elem){
+
+			pokemon.results.forEach(function(elem){
 				var segments = elem.url.split('/');
 				var id = segments[segments.length-2];
 				html += "<div class='item"+(odd?" odd":'')+"' data-id='"+id+"'>";

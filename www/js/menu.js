@@ -5,7 +5,8 @@ $(document).on('pagebeforeshow', '#menu', function(){
 	}, 1000);
 
 	$(".item.list").click(function(){
-		fillList();
+		//only fill if list is empty
+		if(!$.trim($('#list').html())) fillList();
 		$.mobile.navigate("#list", { transition : "slide", info: "info about the #list hash"});
 	});
 
