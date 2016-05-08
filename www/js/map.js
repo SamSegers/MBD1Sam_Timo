@@ -1,3 +1,4 @@
+/* TODO: try getting phonegap plugin working
 /*$(document).on('pagebeforeshow', '#map', function(){ 
   try{
     // Define a div tag with id="map_canvas"
@@ -13,6 +14,18 @@
     console.log(e);
   }
 });*/
+
+/*document.addEventListener("deviceready", function() {
+  mapLoaded = false;
+  console.log('device ready map');
+  var div = document.getElementById("map_canvas");
+
+  // Initialize the map view
+  map = plugin.google.maps.Map.getMap(div);
+
+  // Wait until the map is ready status.
+  map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+}, false);*/
 
 var map;
 var mapLoaded;
@@ -30,18 +43,6 @@ function loadMap(){
 		}else loadMap();
 	}, 1000);
 }
-
-/*document.addEventListener("deviceready", function() {
-  mapLoaded = false;
-  console.log('device ready map');
-  var div = document.getElementById("map_canvas");
-
-  // Initialize the map view
-  map = plugin.google.maps.Map.getMap(div);
-
-  // Wait until the map is ready status.
-  map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
-}, false);*/
 
 function initMap(map){
 	map = new google.maps.Map(document.getElementById('map-canvas'), {

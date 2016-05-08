@@ -62,7 +62,6 @@ var $toast;
 $(function(){
 	loadPokemons();
 	initPokemonAmount();
-	initCatchablePokemon();
 	initCaughtPokemon();
 	initToast();
 	$("body").removeClass('splashscreen');
@@ -111,29 +110,18 @@ function loadPokemons(){
 	})
 }
 
-//TODO pokemon class
 function initCatchablePokemon(){
 	catchable = [];
 
-	var pokemon = getPokemon(1);
-	
-	//TODO close to user location
-	// close to Timo's home
-	pokemon.latitude = 51.957511;
-	pokemon.longitude = 5.244361;
-
-	catchable.push(1);
-
 	// random locations around current location
-	var margin = 1000;
-	for(var i=2;i<=10;i++){
+	// using pokemon id 1 to 10
+	for(var i=1;i<=10;i++){
 		console.log('generate location '+i);
 
-		var coords = getRandomCoords(pokemons[0].latitude, pokemons[0].longitude);
-		//var lat = pokemons[0].latitude-margin/2+Math.floor(Math.random()*margin);
-		//var lng = pokemons[0].longitude-margin/2+Math.floor(Math.random()*margin);
+		var coords = getRandomCoords(positionObject.coords.latitude, positionObject.coords.longitude);
 
-		pokemon = getPokemon(i);
+		//TODO pokemon class
+		var pokemon = getPokemon(i);
 		pokemon.latitude = coords.lat;
 		pokemon.longitude = coords.lng;
 
@@ -181,6 +169,8 @@ function getRandomCoords(originalLat, originalLng){
 	var y1 = w * Math.sin(t);
 	var x1 = x / Math.cos(y0);
 
+	console.log('w '+w);
+	console.log('x '+x);
 	return {lat: y0 + y1, lng: x0 + x1};
 }
 
@@ -212,6 +202,7 @@ function geolocation(){
 							'Longitude: ' + position.coords.longitude     + '<br />' +
 							'<hr />'      + element.innerHTML;*/
 
+		if(catchable==null) initCatchablePokemon();
 		catchableReach(positionObject);
 	}
 
