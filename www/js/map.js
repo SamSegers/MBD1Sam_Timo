@@ -63,11 +63,13 @@ function addMarkers(map){
 
 		var latLng = {lat: pokemon.latitude, lng: pokemon.longitude};
 
-		var circle = new google.maps.Circle({
-			strokeColor: '#FF0000',
+		var color = getMarkerColor(pokemon.id);
+
+		pokemon.marker = new google.maps.Circle({
+			strokeColor: color,
 			strokeOpacity: 0.8,
 			strokeWeight: 2,
-			fillColor: '#FF0000',
+			fillColor: color,
 			fillOpacity: 0.35,
 			map: map,
 			center: latLng,
@@ -76,6 +78,15 @@ function addMarkers(map){
 
 		console.log('added '+pokemon.id+' to map');
 	}
+}
+
+function updateMarkerColor(pokemon){
+	var color = getMarkerColor(pokemon.id);
+	pokemon.marker.setOptions({strokeColor: color, fillColor: color});
+}
+
+function getMarkerColor(id){
+	return caught.indexOf(id)==-1?'#ff0000':'#00ff00';
 }
 
 var userMarker;
@@ -97,11 +108,9 @@ function addUserMarker(map){
 	console.log('added user marker');
 }
 
-function updateMapLocation(){
-	console.log('update map location');
+function updateUserMarker(){
 	if(positionObject!=null && userMarker!=null){
-		console.log('set position');
 		var latLng = {lat: positionObject.coords.latitude, lng: positionObject.coords.longitude};
-		userMarker.setPosition(latLng);
+		userMarker.setOptions({center: latLng});
 	}
 }

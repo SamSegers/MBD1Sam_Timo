@@ -202,7 +202,7 @@ function geolocation(){
 
 		if(catchable==null) initCatchablePokemon();
 		if(catchable!=null) catchableReach(positionObject);
-		updateMapLocation();
+		updateUserMarker();
 	}
 
 	function catchableReach(position){
@@ -218,8 +218,9 @@ function geolocation(){
 				localStorage.setItem("caught", JSON.stringify(caught));
 				console.log(caught);
 
-				detailPokemonId = pokemon.id;
+				updateMarkerColor(pokemon);	
 
+				detailPokemonId = pokemon.id;
 				$toast.find("span").text("caught "+pokemon.name+"!");
 				$toast.find('img').attr('src', "http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png");
 				$toast.fadeIn(1000, function(){
