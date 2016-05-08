@@ -211,14 +211,12 @@ function geolocation(){
 
 			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
 			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
-			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=1000){ // test if pokemon is in 110 meter distance radius
+			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=100){ // test if pokemon is in 110 meter distance radius
 				//navigator.vibrate(3000); TODO uncomment
 
 				caught.push(pokemon.id);
 				localStorage.setItem("caught", JSON.stringify(caught));
 				console.log(caught);
-
-				updateMarkerColor(pokemon);	
 
 				detailPokemonId = pokemon.id;
 				$toast.find("span").text("caught "+pokemon.name+"!");
@@ -227,6 +225,7 @@ function geolocation(){
 					window.setTimeout(function(){
 						$toast.fadeOut(1000, function(){
 							$toast.find('img').attr('src', null);
+							updateMarkerColor(pokemon);	
 						});
 					}, 8000);
 				});
