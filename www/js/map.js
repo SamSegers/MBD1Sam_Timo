@@ -52,6 +52,7 @@ function initMap(map){
 	mapLoaded = true;
 
 	addMarkers(map);
+	addUserMarker(map);
 }
 
 function addMarkers(map){
@@ -74,5 +75,33 @@ function addMarkers(map){
 		});
 
 		console.log('added '+pokemon.id+' to map');
+	}
+}
+
+var userMarker;
+
+function addUserMarker(map){
+	var latLng = {lat: positionObject.coords.latitude, lng: positionObject.coords.longitude};
+
+	userMarker = new google.maps.Circle({
+		strokeColor: '#0044FF',
+		strokeOpacity: 0.8,
+		strokeWeight: 2,
+		fillColor: '#0044FF',
+		fillOpacity: 0.35,
+		map: map,
+		center: latLng,
+		radius: 10
+	});
+
+	console.log('added user marker');
+}
+
+function updateMapLocation(){
+	console.log('update map location');
+	if(positionObject!=null && userMarker!=null){
+		console.log('set position');
+		var latLng = {lat: positionObject.coords.latitude, lng: positionObject.coords.longitude};
+		userMarker.setPosition(latLng);
 	}
 }

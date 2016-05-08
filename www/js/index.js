@@ -169,8 +169,6 @@ function getRandomCoords(originalLat, originalLng){
 	var y1 = w * Math.sin(t);
 	var x1 = x / Math.cos(y0);
 
-	console.log('w '+w);
-	console.log('x '+x);
 	return {lat: y0 + y1, lng: x0 + x1};
 }
 
@@ -203,7 +201,8 @@ function geolocation(){
 							'<hr />'      + element.innerHTML;*/
 
 		if(catchable==null) initCatchablePokemon();
-		catchableReach(positionObject);
+		if(catchable!=null) catchableReach(positionObject);
+		updateMapLocation();
 	}
 
 	function catchableReach(position){
@@ -212,7 +211,7 @@ function geolocation(){
 
 			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
 			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
-			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=110){ // test if pokemon is in 110 meter distance radius
+			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=100){ // test if pokemon is in 110 meter distance radius
 				//navigator.vibrate(3000); TODO uncomment
 
 				caught.push(pokemon.id);
@@ -244,7 +243,7 @@ function geolocation(){
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 		var d = R * c;
-		return d * 500; // meters
+		return d * 1000; // meters
 	}
 
 	// onError Callback receives a PositionError object
