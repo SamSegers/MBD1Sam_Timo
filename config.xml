@@ -82,7 +82,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="android" spec="~4.1.1" />
-	<plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-geolocation" spec="~2.1.0" />
     <plugin name="cordova-plugin-navigationbar" spec="~1.0.31" />
     <plugin name="cordova-plugin-googlemaps" spec="C:\Users\admin\Downloads\cordova-plugin-googlemaps-master" />

@@ -1,3 +1,4 @@
+
 function onError(reason) {
         console.log("ERROR: " + reason);
     }
@@ -19,3 +20,4 @@ $(function(){
  ble.scan([], 5, onDiscoverDevice, onError);
  console.log("test2");
 });
+
