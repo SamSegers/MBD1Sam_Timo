@@ -1,33 +1,23 @@
-$(document).on('pagebeforeshow', '#detail', function(){ 
-	console.log('detail');
+$(document).on('pagebeforeshow', '#caught', function(){ 
 	loadCaughtPokemon();
 });
 
+// click on item in list, go to detail page
+$("#detail").on("click", ".item", function(){
+	detailPokemonId = $(this).attr('data-id');
+	$.mobile.navigate( "#detail", { transition : "slide", info: "info about the #detail hash" });
 
 function loadCaughtPokemon(){
-	console.log('detail 2');
-	/*var t = localStorage.getItem("caught");
-	if(t == "") return;
-	var caught = JSON.parse(localStorage.getItem("caught"));
-	if(caught==null) caught = [];*/
-	console.log(caught);
-	 
-	for (var i = 0; i < caught.length; i++) {
-		$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=1&offset='+caught[i], function(pokemon){
-			var html = '';
-			var odd = false;
-			var nextUrl = pokemons.next;
-
-			pokemon.results.forEach(function(elem){
-				var segments = elem.url.split('/');
-				var id = segments[segments.length-2];
-				html += "<div class='item"+(odd?" odd":'')+"' data-id='"+id+"'>";
-				html += "<img src='http://pokeapi.co/media/sprites/pokemon/"+id+".png'/>";
-				html += "<span>"+elem.name+"</span>";
-				html += "</div>";
-				odd ^= true;
-			});
-			$('#caught').append(html);
-		});
+	var html = '';
+	var odd = false;
+	for(var i=0;i<caught.length;i++){
+		var pokemon = getPokemon(caught[i]);
+		console.log(pokemon);	
+		html += "<div class='item"+(odd?" odd":'')+"' data-id='"+pokemon.id+"'>";
+		html += "<img src='http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png'/>";
+		html += "<span>"+pokemon.name+"</span>";
+		html += "</div>";
+		odd ^= true;
 	}
+	$('#caught').html(html);
 }
