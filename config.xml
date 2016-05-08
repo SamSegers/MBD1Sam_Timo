@@ -41,6 +41,7 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
+	
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -81,8 +82,7 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="android" spec="~4.1.1" />
-	<plugin name="org.bcsphere.bluetooth" spec="0.5.1" source="pgb" />
-    <plugin name="cordova-plugin-whitelist" spec="1" />
+	<plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-geolocation" spec="~2.1.0" />
     <plugin name="cordova-plugin-navigationbar" spec="~1.0.31" />
     <plugin name="cordova-plugin-googlemaps" spec="C:\Users\admin\Downloads\cordova-plugin-googlemaps-master" />
