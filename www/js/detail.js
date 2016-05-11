@@ -43,26 +43,3 @@ function updateDetailPage(){
 		$('#detail > .loading').hide();
 	});
 }
-
-function swipeleftHandler( event ){
-	
-    console.log("SwipeL");
-	detailPokemonId -= 1;
-	if(detailPokemonId == 0)
-	{
-		detailPokemonId = 1;
-	}
-	updateDetailPage();
-}
-
-function swiperightHandler( event ){
-    console.log("swipeR");
-	
-	detailPokemonId += 1;
-	if(detailPokemonId == 811)
-	{
-		detailPokemonId = 810;
-	}
-	
-	updateDetailPage();
-}
