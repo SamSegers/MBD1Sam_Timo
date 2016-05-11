@@ -1,5 +1,23 @@
 $(document).on('pagebeforeshow', '#detail', function(){ 
 	updateDetailPage();
+	$(document).on( "swipeleft", function(){
+		detailPokemonId -= 1;
+		if(detailPokemonId == 0)
+		{
+			detailPokemonId = 1;
+		}
+		updateDetailPage();
+	});
+	$(document).on( "swiperight", function(){
+	
+		detailPokemonId += 1;
+		if(detailPokemonId == 811)
+		{
+			detailPokemonId = 810;
+		}
+	
+		updateDetailPage();
+	});
 });
 
 function updateDetailPage(){
@@ -24,4 +42,27 @@ function updateDetailPage(){
 		$rows.children('.weight').text(data.weight);
 		$('#detail > .loading').hide();
 	});
+}
+
+function swipeleftHandler( event ){
+	
+    console.log("SwipeL");
+	detailPokemonId -= 1;
+	if(detailPokemonId == 0)
+	{
+		detailPokemonId = 1;
+	}
+	updateDetailPage();
+}
+
+function swiperightHandler( event ){
+    console.log("swipeR");
+	
+	detailPokemonId += 1;
+	if(detailPokemonId == 811)
+	{
+		detailPokemonId = 810;
+	}
+	
+	updateDetailPage();
 }
