@@ -40,6 +40,17 @@ function updateDetailPage(){
 		$rows.children('.types').text(text);
 		$rows.children('.height').text(data.height);
 		$rows.children('.weight').text(data.weight);
+		$rows.children('.link').text("http://www.pokemon.com/us/pokedex/"+data.name);
+		$rows.children('.link').click(function(e) {
+			if (typeof navigator !== "undefined" && navigator.app)
+			{
+				navigator.app.loadUrl('http://www.google.com/', {openExternal: true});
+			}
+			else
+			{
+				window.open('http://www.pokemon.com/us/pokedex/'+data.name, '_system');
+			}
+		});
 		$('#detail > .loading').hide();
 	});
 }
