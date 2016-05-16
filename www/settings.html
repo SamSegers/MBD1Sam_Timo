@@ -1,3 +1,24 @@
 <div id='settings' data-role='page'>
-	settings
+	<div data-role='header' data-position='fixed'> 
+		<h1>Settings</h1> 
+	</div> 
+
+	<div class='wrapper'>
+		<div class='setting language'>
+			<label>language: </label>
+			<select>
+				<option>English</option>
+				<option>Dutch</option>
+			</select>
+		</div>
+		<div class='setting background-color'>
+			<label>background color: </label>
+			<input type='color'/>
+		</div>
+		<div class='setting foreground-color'>
+			<label>foreground color: </label>
+			<input type='color'/>
+		</div>
+		<input type='button' value='default' onclick='defaultSettings()'/>
+	</div>
 </div>

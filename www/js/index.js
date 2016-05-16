@@ -52,19 +52,22 @@ var app = {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-var pokemonAmount;
-var pokemons;
-var detailPokemonId; // used for detail page
-var caught; // caught pokemon
-var catchable; // possible pokemon to catch
-var $toast;
+let pokemonAmount;
+let pokemons;
+let detailPokemonId; // used for detail page
+let caught; // caught pokemon
+let catchable; // possible pokemon to catch
+let $toast;
+let foregroundColor;
 
 $(function(){
+	initForeground();
 	loadPokemons();
 	initPokemonAmount();
 	initCaughtPokemon();
 	initToast();
 	$("body").removeClass('splashscreen');
+	initBackground();
 });
 
 // Bind to the navigate event
@@ -82,12 +85,20 @@ function onDeviceReady(){
 	geolocation();
 }
 
-
-
 function initPokemonAmount(){
 	$.getJSON('http://pokeapi.co/api/v2/pokemon/?limit=0', function(pokemons){
 		pokemonAmount = pokemons.count;
 	});
+}
+
+function initBackground(){
+	if(localStorage.background==null) localStorage.background = '#ff0000';
+	$('body').css('background', localStorage.background);
+}
+
+function initForeground(){
+	if(localStorage.foreground==null) localStorage.foreground = '#000';
+	$('#settings > .wrapper').css('color', localStorage.foreground);
 }
 
 function loadPokemons(){
@@ -212,7 +223,7 @@ function geolocation(){
 			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
 			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=100){ // test if pokemon is in 110 meter distance radius
-				navigator.vibrate(3000);
+				//navigator.vibrate(3000); TODO uncomment
 
 				caught.push(pokemon.id);
 				localStorage.setItem("caught", JSON.stringify(caught));

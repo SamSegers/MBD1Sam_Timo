@@ -1,20 +1,20 @@
 /* display table/table-cell so the menu gets vertically centered */
 
-.wrapper{
+#menu .wrapper{
 	width: 100%;
 	height: 100%;
 	position: absolute;
 }
 
-.wrapper > div{
-	color: #FFF;
+#menu .wrapper > div{
+	color: #fff;
 	display: table;
     position: absolute;
     height: 100%;
     width: 100%;
 }
 
-.wrapper > div > .logo{
+#menu .wrapper > div > .logo{
 	position: absolute;
 	width: auto;
 	height: 80px;
@@ -23,7 +23,7 @@
 	right: 0;
 }
 
-.wrapper > div > .menu-pokemon{
+#menu .wrapper > div > .menu-pokemon{
 	position: absolute;
 	width: auto;
 	height: 100px;
@@ -34,7 +34,7 @@
 	display: none;
 }
 
-.wrapper > div > .credits{
+#menu .wrapper > div > .credits{
 	position: absolute;
 	font-size: 10px;
 	bottom: 0px;
@@ -42,12 +42,12 @@
 	text-align: center;
 }
 
-.wrapper >  div > .menu{
+#menu .wrapper >  div > .menu{
     display: table-cell;
     vertical-align: middle;
 }
 
-.wrapper > div > .menu > .item{
+#menu .wrapper > div > .menu > .item{
 	padding: 10px;	
 	margin: 10px 5px;
 	border-radius: 3px;

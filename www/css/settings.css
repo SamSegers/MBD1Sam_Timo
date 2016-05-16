@@ -1,0 +1,22 @@
+#settings > .wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	margin-top: -45px;
+	position: absolute;
+}
+
+#settings > .wrapper > .setting{
+	font-size: 0px;
+	width: 90%;
+}
+
+#settings > .wrapper > .setting > *{
+	display: inline-block;
+	width: 48%;
+	font-size: medium;
+	vertical-align: middle;
+}

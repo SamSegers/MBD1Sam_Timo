@@ -5,7 +5,7 @@
 body {
 	margin: 0px;	
 	padding: 0px;
-	background-color: red; /* generic pokedex color */
+	background-color: #ff0000; /* generic pokedex color */
 }
 
 body.splashscreen{
