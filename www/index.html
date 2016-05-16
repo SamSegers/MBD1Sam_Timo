@@ -36,6 +36,7 @@
         <link rel="stylesheet" type="text/css" href="css/map.css" />
         <link rel="stylesheet" type="text/css" href="css/exchange.css" />
         <link rel="stylesheet" type="text/css" href="css/detail.css" />
+        <link rel="stylesheet" type="text/css" href="css/settings.css" />
         <title>pokedex</title>
     </head>
     <body class='splashscreen'>
@@ -59,43 +60,16 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
 		<script>
-			// http://stackoverflow.com/a/4867469/3895469
+			let pages = ['menu', 'list', 'caught', 'map', 'exchange', 'detail', 'settings'];
 
-			$.ajax({
-				url: "menu.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
-
-			$.ajax({
-				url: "list.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
-
-			$.ajax({
-				url: "caught.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
-
-			$.ajax({
-				url: "map.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
-
-			$.ajax({
-				url: "exchange.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
-
-			$.ajax({
-				url: "detail.html",
-				success: function (data) { $('body').append(data); },
-				dataType: 'html'
-			});
+			pages.forEach(function(page){
+				// http://stackoverflow.com/a/4867469/3895469
+				$.ajax({
+					url: page+".html",
+					success: function (data) { $('body').append(data); },
+					dataType: 'html'
+				});
+			});	
 		</script>
 
         <script type="text/javascript" src="cordova.js"></script>
@@ -105,6 +79,7 @@
         <script type="text/javascript" src="js/caught.js"></script>
         <script type="text/javascript" src="js/exchange.js"></script>
         <script type="text/javascript" src="js/detail.js"></script>
+        <script type="text/javascript" src="js/settings.js"></script>
 		
         <script type="text/javascript">
             app.initialize();

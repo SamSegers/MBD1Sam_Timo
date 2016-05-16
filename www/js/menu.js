@@ -4,22 +4,13 @@ $(document).on('pagebeforeshow', '#menu', function(){
 		initMenuRandomPokemon();
 	}, 1000);
 
-	$(".item.list").click(function(){
+	$(".menu > .item").click(function(){
+		let page = $(this).attr('data-nav');
+
 		//only fill if list is empty
-		if(!$.trim($('#list').html())) fillList();
-		$.mobile.navigate("#list", { transition : "slide", info: "info about the #list hash"});
-	});
+		if(page=='list' && !$.trim($('#list').html())) fillList();
 
-	$(".item.caught").click(function(){
-		$.mobile.navigate("#caught", { transition : "slide", info: "info about the #caught hash"});
-	});
-
-	$(".item.map").click(function(){
-		$.mobile.navigate("#map", { transition : "slide", info: "info about the #map hash"});
-	});
-
-	$(".item.exchange").click(function(){
-		$.mobile.navigate("#exchange", { transition : "slide", info: "info about the #exchange hash"});
+		$.mobile.navigate("#"+page, { transition : "slide", info: "info about the #"+page+" hash"});
 	});
 
 	$(".menu-pokemon").click(function(){
