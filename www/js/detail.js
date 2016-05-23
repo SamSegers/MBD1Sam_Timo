@@ -1,4 +1,32 @@
+function loadLanguageDetails()
+{
+	if(localStorage["language"])
+	{
+		var language = localStorage["language"];
+		if(language == "Nederlands")
+		{
+			$("#name").html("naam: ");
+			$("#species").html("ras: ");
+			$("#basexp").html("start xp:");
+			$("#abilities").html("gaven: ");
+			$("#height").html("lengte: ");
+			$("#weight").html("gewicht: ");
+		}
+		else if(language == "English")
+		{
+			$("#name").html("name: ");
+			$("#species").html("species: ");
+			$("#basexp").html("base experience:");
+			$("#abilities").html("abilities: ");
+			$("#height").html("height: ");
+			$("#weight").html("weight: ");
+		}	
+	}
+}
+
 $(document).on('pagebeforeshow', '#detail', function(){ 
+
+	loadLanguageDetails();
 	updateDetailPage();
 	$(document).on( "swipeleft", function(){
 		detailPokemonId -= 1;

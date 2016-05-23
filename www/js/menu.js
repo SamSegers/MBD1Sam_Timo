@@ -1,4 +1,27 @@
+function loadLanguageMenu()
+{
+	if(localStorage["language"])
+	{
+		var language = localStorage["language"];
+		if(language == "Nederlands")
+		{
+			$("#listpkmn").html("lijst");
+			$("#caught").html("gevangen");
+			$("#map").html("kaart");
+			$("#settings").html("instellingen");
+		}
+		else if(language == "English")
+		{
+			$("#listpkmn").html("list");
+			$("#caught").html("caught");
+			$("#map").html("map");
+			$("#settings").html("settings");
+		}	
+	}
+}
+
 $(document).on('pagebeforeshow', '#menu', function(){ 
+	loadLanguageMenu();
 	$("#menu .menu-pokemon").fadeOut(500);
 	window.setTimeout(function(){
 		initMenuRandomPokemon();

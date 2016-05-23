@@ -5,18 +5,18 @@
 
 	<div class='wrapper'>
 		<div class='setting language'>
-			<label>language: </label>
-			<select>
-				<option>English</option>
-				<option>Dutch</option>
+			<label id='lblLanguage' name='lblLanguage'>language: </label>
+			<select id='slctLanguage' name='slctLanguage'>
+				<option value="English">English</option>
+				<option value="Nederlands">Nederlands</option>
 			</select>
 		</div>
 		<div class='setting background-color'>
-			<label>background color: </label>
+			<label id='lblbgColor' name='lblbgColor'>background color: </label>
 			<input type='color'/>
 		</div>
 		<div class='setting foreground-color'>
-			<label>foreground color: </label>
+			<label id='lblfgColor' name='lblfgColor'>foreground color: </label>
 			<input type='color'/>
 		</div>
 		<input type='button' value='default' onclick='defaultSettings()'/>
