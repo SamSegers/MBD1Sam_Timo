@@ -78,10 +78,22 @@ $( window ).on( "navigate", function( event, data ) {
 	//console.log( data.state.hash )
 });
 
+function onSuccess(acceleration) {
+	console.log('DEF');
+}
+
+// onError: Failed to get the acceleration
+//
+function onError() {
+	console.log('ABC');
+}
 
 function onDeviceReady(){
 	console.log('device ready');
-	
+	var options = { frequency: 3000 };
+	console.log(navigator.accelerometer);
+    navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+	console.log('test');
 	geolocation();
 }
 
