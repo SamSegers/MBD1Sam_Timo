@@ -11,13 +11,17 @@ $("#caught").on("click", ".item", function(){
 function loadCaughtPokemon(){
 	var html = '';
 	var odd = false;
-	console.log('hmm');
+
 	for(var i=0;i<caught.length;i++){
 		var pokemon = getPokemon(caught[i]);
-		html += "<div class='item"+(odd?" odd":'')+"' data-id='"+pokemon.id+"'>";
-		html += "<img src='http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png'/>";
-		html += "<span>"+pokemon.name+"</span>";
-		html += "</div>";
+
+		html += ""+
+			"<div class='item"+(odd?" odd":'')+"' data-id='"+pokemon.id+"'>"+
+				"<img src='http://pokeapi.co/media/sprites/pokemon/"+pokemon.id+".png'/>"+
+				"<span>"+pokemon.name+"</span>"+
+			"</div>"
+		;
+
 		odd ^= true;
 	}
 	$('#caught').html(html);
