@@ -84,6 +84,7 @@ function onShakeSuccess(acceleration) {
 	console.log('shake');
 	var accelerationChange = {};
 	if (previousAcceleration.x !== null) {
+		console.log('Set changed');
 		accelerationChange.x = Math.abs(previousAcceleration.x - acceleration.x);
 		accelerationChange.y = Math.abs(previousAcceleration.y - acceleration.y);
 		accelerationChange.z = Math.abs(previousAcceleration.z - acceleration.z);
@@ -96,6 +97,7 @@ function onShakeSuccess(acceleration) {
 	};
 
 	if (accelerationChange.x + accelerationChange.y + accelerationChange.z > sensitivity) {
+		console.log('Load random pokemon');
 		detailPokemonId = Math.floor((Math.random() * 650) + 1);
 		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #exchange hash"});
 	}
@@ -104,7 +106,7 @@ function onShakeSuccess(acceleration) {
 // onError: Failed to get the acceleration
 //
 function onShakeError() {
-	
+	console.log('ABC');
 }
 
 function onDeviceReady(){
