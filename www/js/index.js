@@ -78,10 +78,11 @@ $( window ).on( "navigate", function( event, data ) {
 	//console.log( data.state.hash )
 });
 var sensitivity = 20;
-var previousAcceleration = {x: 0, y:0 z:0};
+var previousAcceleration = {x: 0, y:0, z:0};
 function onSuccess(acceleration) {
 	var accelerationChange = {};
 	if (previousAcceleration.x !== null) {
+		console.log('Set changed');
 		accelerationChange.x = Math.abs(previousAcceleration.x - acceleration.x);
 		accelerationChange.y = Math.abs(previousAcceleration.y - acceleration.y);
 		accelerationChange.z = Math.abs(previousAcceleration.z - acceleration.z);
@@ -94,6 +95,7 @@ function onSuccess(acceleration) {
 	};
 
 	if (accelerationChange.x + accelerationChange.y + accelerationChange.z > sensitivity) {
+		console.log('Load random pokemon');
 		detailPokemonId = Math.floor((Math.random() * 650) + 1);
 		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #exchange hash"});
 	}
@@ -102,7 +104,7 @@ function onSuccess(acceleration) {
 // onError: Failed to get the acceleration
 //
 function onError() {
-	
+	console.log('ABC');
 }
 
 function onDeviceReady(){
@@ -110,7 +112,6 @@ function onDeviceReady(){
 	var options = { frequency: 3000 };
 	console.log(navigator.accelerometer);
     navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-	console.log('test');
 	geolocation();
 }
 
