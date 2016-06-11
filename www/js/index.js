@@ -33,7 +33,6 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-		
         app.receivedEvent('deviceready');
     },
 	
@@ -77,9 +76,12 @@ $( window ).on( "navigate", function( event, data ) {
 	console.log( data.state.url )
 	//console.log( data.state.hash )
 });
+
 var sensitivity = 20;
-var previousAcceleration = {x: 0, y:0 z:0};
-function onSuccess(acceleration) {
+var previousAcceleration = {x: 0, y:0, z:0};
+
+function onShakeSuccess(acceleration) {
+	console.log('shake');
 	var accelerationChange = {};
 	if (previousAcceleration.x !== null) {
 		accelerationChange.x = Math.abs(previousAcceleration.x - acceleration.x);
@@ -101,7 +103,7 @@ function onSuccess(acceleration) {
 
 // onError: Failed to get the acceleration
 //
-function onError() {
+function onShakeError() {
 	
 }
 
@@ -109,8 +111,7 @@ function onDeviceReady(){
 	console.log('device ready');
 	var options = { frequency: 3000 };
 	console.log(navigator.accelerometer);
-    navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-	console.log('test');
+    navigator.accelerometer.watchAcceleration(onShakeSuccess, onShakeError, options);
 	geolocation();
 }
 
