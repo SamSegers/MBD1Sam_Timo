@@ -77,15 +77,32 @@ $( window ).on( "navigate", function( event, data ) {
 	console.log( data.state.url )
 	//console.log( data.state.hash )
 });
-
+var sensitivity = 20;
+var previousAcceleration = {x: 0, y:0 z:0};
 function onSuccess(acceleration) {
-	console.log('DEF');
+	var accelerationChange = {};
+	if (previousAcceleration.x !== null) {
+		accelerationChange.x = Math.abs(previousAcceleration.x - acceleration.x);
+		accelerationChange.y = Math.abs(previousAcceleration.y - acceleration.y);
+		accelerationChange.z = Math.abs(previousAcceleration.z - acceleration.z);
+	}
+
+	previousAcceleration = {
+		x: acceleration.x,
+		y: acceleration.y,
+		z: acceleration.z
+	};
+
+	if (accelerationChange.x + accelerationChange.y + accelerationChange.z > sensitivity) {
+		detailPokemonId = Math.floor((Math.random() * 650) + 1);
+		$.mobile.navigate("#detail", { transition : "slide", info: "info about the #exchange hash"});
+	}
 }
 
 // onError: Failed to get the acceleration
 //
 function onError() {
-	console.log('ABC');
+	
 }
 
 function onDeviceReady(){
