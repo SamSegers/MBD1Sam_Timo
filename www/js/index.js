@@ -51,13 +51,13 @@ var app = {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-let pokemonAmount;
-let pokemons;
-let detailPokemonId; // used for detail page
-let caught; // caught pokemon
-let catchable; // possible pokemon to catch
-let $toast;
-let foregroundColor;
+var pokemonAmount;
+var pokemons;
+var detailPokemonId; // used for detail page
+var caught; // caught pokemon
+var catchable; // possible pokemon to catch
+var $toast;
+var foregroundColor;
 
 $(function(){
 	initForeground();
@@ -81,10 +81,8 @@ var sensitivity = 20;
 var previousAcceleration = {x: 0, y:0, z:0};
 
 function onShakeSuccess(acceleration) {
-	console.log('shake');
 	var accelerationChange = {};
 	if (previousAcceleration.x !== null) {
-		console.log('Set changed');
 		accelerationChange.x = Math.abs(previousAcceleration.x - acceleration.x);
 		accelerationChange.y = Math.abs(previousAcceleration.y - acceleration.y);
 		accelerationChange.z = Math.abs(previousAcceleration.z - acceleration.z);
@@ -106,13 +104,11 @@ function onShakeSuccess(acceleration) {
 // onError: Failed to get the acceleration
 //
 function onShakeError() {
-	console.log('ABC');
 }
 
 function onDeviceReady(){
 	console.log('device ready');
 	var options = { frequency: 3000 };
-	console.log(navigator.accelerometer);
     navigator.accelerometer.watchAcceleration(onShakeSuccess, onShakeError, options);
 	geolocation();
 }
@@ -255,7 +251,7 @@ function geolocation(){
 			if(caught.indexOf(pokemon.id)==-1 // test if pokemon is not caught already
 			&& pokemon.hasOwnProperty('latitude') && pokemon.hasOwnProperty('longitude') // test if pokemon can be caught
 			&& measure(position.coords.latitude, position.coords.longitude, pokemon.latitude, pokemon.longitude)<=100){ // test if pokemon is in 110 meter distance radius
-				//navigator.vibrate(3000); TODO uncomment
+				navigator.vibrate(3000);
 
 				caught.push(pokemon.id);
 				localStorage.setItem("caught", JSON.stringify(caught));
@@ -300,10 +296,10 @@ function geolocation(){
 	else{
 		// Options: throw an error if no update is received every 30 seconds.
 		//
-		//var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+		var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
 
 		window.setInterval(function(){
-			navigator.geolocation.getCurrentPosition(onSuccess, onError, false);
+			navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		}, 15000);
 	}
 }
