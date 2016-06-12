@@ -16,11 +16,15 @@
 
 #menu .wrapper > div > .logo{
 	position: absolute;
-	width: auto;
-	height: 80px;
+	width: 387px;
+	height: 139px;
 	margin: 10px auto;
 	left: 0;
 	right: 0;
+	zoom: 0.6;
+	background-repeat: no-repeat;
+	background-image: url(../img/spritesheet.png);
+	background-size: 100% 100&;
 }
 
 #menu .wrapper > div > .menu-pokemon{

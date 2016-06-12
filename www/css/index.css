@@ -10,9 +10,9 @@ body {
 
 body.splashscreen{
 	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	background-position: center center;
-	background-image: url(../img/splashscreen.jpg);
+	background-size: 100% 125%;
+	background-position: 0 -140px;
+	background-image: url(../img/spritesheet.png);
 	background-color: #828e60;
 }
 
